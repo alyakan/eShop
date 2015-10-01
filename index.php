@@ -2,7 +2,7 @@
     session_start();
     require("includes/connection.php");
     if(isset($_GET['page'])){
-        $pages = array("products", "cart", "checkout");
+        $pages = array("products", "cart", "checkout", "history");
 
         if(in_array($_GET['page'], $pages)){
             $_page=$_GET['page'];
@@ -57,12 +57,17 @@
                         }
                         ?>
                          <hr />
-                         <a href="index.php?page=cart">Go to cart</a>
+                         <a href="index.php?page=cart">Go to cart</a><br>
                          <?php
                     }else {
                         echo "<h2>Your Cart is empty!</h2>";
                     }
+                    if ($_page!='history') {
+                    ?>
 
+                    <a href="index.php?page=history">View your purchase history</a>
+                    <?php
+                    }
 
                 ?>
             </div><!--end sidebar-->

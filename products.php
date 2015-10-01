@@ -55,8 +55,20 @@
         <tr>
             <td><?php echo $row['Name'] ?></td>
             <td><?php echo $row['Price'] ?>$</td>
-            <td><?php echo $row['Quantity'] ?></td>
-            <td><a href="index.php?page=products&action=add&id=<?php echo $row['id_product'] ?>">Add to cart</a></td>
+            <td>
+                <?php
+                    if ($row['Quantity']==0) {
+                        echo "Out of stock";
+                    }else {
+                        echo $row['Quantity']; 
+                    }
+                    
+                ?>
+            </td>
+            <td>
+                <a href="index.php?page=products&action=add&id=<?php echo $row['id_product'] ?>">Add to cart</a><br>
+                <a href="index.php?page=checkout&action=buy&id=<?php echo $row['id_product'] ?>">Buy this item</a>
+            </td>
         </tr>
     <?php
         }

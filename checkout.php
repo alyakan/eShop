@@ -1,3 +1,18 @@
+<?php 
+
+	if(isset($_GET['action']) && $_GET['action']=="buy"){
+        $id=intval($_GET['id']);
+
+        $sql_buy="INSERT INTO Cart (p_id, quantity, username, bought)
+            VALUES ($id, 1, 'aly', 0)";
+        mysql_query($sql_buy);
+    }
+
+
+
+
+ ?>
+
 <h1>Checkout</h1>
 <h2>This is your last chance to change your mind!</h2>
 <a href="index.php?page=cart">Go back to cart?</a>
