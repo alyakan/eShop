@@ -68,7 +68,7 @@
         </td>
         <td>
             <div class="btn-group">
-                <a href="index.php?page=checkout&action=buy&id=<?php echo $row['id_product'] ?>" class="btn btn-primary btn-sm">Buy this item</a>
+                <a href="index.php?page=checkout&action=buy&id=<?php echo $row['id_product'] ?>" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Proceed to checkout with this item!">Buy this item</a>
                 <a href="index.php?page=products&action=add&id=<?php echo $row['id_product'] ?>" class="btn btn-primary btn-sm"><i class="fa fa-cart-plus fa-fw"></i> Add to cart</a>
             </div>
         </td>
@@ -78,6 +78,12 @@
 
     ?>
 </table>
+
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip(); 
+    });
+</script>
 
 
 
