@@ -14,64 +14,64 @@
         $_page="products";
     }
 
-if(!isset($_SESSION['user_id']))
-{
-    $message = 'You are not logged in';
-}
-else
-{
-    try
-    {
-        /*** connect to database ***/
-        /*** mysql hostname ***/
-        $mysql_hostname = 'localhost';
+// if(!isset($_SESSION['user_id']))
+// {
+//     $message = 'You are not logged in';
+// }
+// else
+// {
+//     try
+//     {
+//         /*** connect to database ***/
+//         /*** mysql hostname ***/
+//         $mysql_hostname = 'localhost';
 
-        /*** mysql username ***/
-        $mysql_username = 'tutorial';
+//         /*** mysql username ***/
+//         $mysql_username = 'tutorial';
 
-        /*** mysql password ***/
-        $mysql_password = 'supersecretpassword';
+//         /*** mysql password ***/
+//         $mysql_password = 'supersecretpassword';
 
-        /*** database name ***/
-        $mysql_dbname = 'tutorials';
+//         /*** database name ***/
+//         $mysql_dbname = 'tutorials';
 
 
-        /*** select the users name from the database ***/
-        $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
-        /*** $message = a message saying we have connected ***/
+//         /*** select the users name from the database ***/
+//         $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
+//         /*** $message = a message saying we have connected ***/
 
-        /*** set the error mode to excptions ***/
-        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//         /*** set the error mode to excptions ***/
+//         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        /*** prepare the insert ***/
-        $stmt = $dbh->prepare("SELECT username FROM users 
-        WHERE user_id = :user_id");
+//         ** prepare the insert **
+//         $stmt = $dbh->prepare("SELECT username FROM users 
+//         WHERE user_id = :user_id");
 
-        /*** bind the parameters ***/
-        $stmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+//         /*** bind the parameters ***/
+//         $stmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
 
-        /*** execute the prepared statement ***/
-        $stmt->execute();
+//         /*** execute the prepared statement ***/
+//         $stmt->execute();
 
-        /*** check for a result ***/
-        $username = $stmt->fetchColumn();
+//         /*** check for a result ***/
+//         $username = $stmt->fetchColumn();
 
-        /*** if we have no something is wrong ***/
-        if($username == false)
-        {
-            $message = 'Access Error';
-        }
-        else
-        {
-            $message = 'you are logged in as '.$username;
-        }
-    }
-    catch (Exception $e)
-    {
-        /*** if we are here, something is wrong in the database ***/
-        $message = 'We are unable to process your request. Please try again later"';
-    }
-}
+//         /*** if we have no something is wrong ***/
+//         if($username == false)
+//         {
+//             $message = 'Access Error';
+//         }
+//         else
+//         {
+//             $message = 'you are logged in as '.$username;
+//         }
+//     }
+//     catch (Exception $e)
+//     {
+//         /*** if we are here, something is wrong in the database ***/
+//         $message = 'We are unable to process your request. Please try again later"';
+//     }
+// }
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 

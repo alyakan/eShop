@@ -1,7 +1,12 @@
 <?php
 /*** begin our session ***/
 
+/*require("includes/connection.php");
+*/
 session_start();
+
+require("includes/connection.php");
+
 
 /*** first check that both the username, password and form token have been sent ***/
 if(!isset( $_POST['username'], $_POST['password'], $_POST['form_token']))
@@ -40,67 +45,37 @@ elseif (!($_POST['password'] == $_POST['conpass']))
     $message = "Passwords dont match";
 }
 else
-{
+{   
+
     /*** if we are here the data is valid and we can insert it into database ***/
     $username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
     $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
     $email = filter_var($_POST['email'], FILTER_SANITIZE_STRING);
-    $lastname = filter_var($_POST['lastname'], FILTER_SANITIZE_STRING);
-
-/*    $firstname = filter_var($_POST['firstname'], FILTER_SANITIZE_STRING);
-    $avatar = filter_var($_POST['avatar'], FILTER_SANITIZE_STRING);*/
-
-
-    try
-    {
-        require("includes/connection.php");
-         /*** $message = a message saying we have connected ***/
-
-        /*** set the error mode to excptions ***/
-
-        /*** insert ***/
-
-        $sql1="INSERT INTO Users (firstname, lastname , password ,email  ) VALUES
-            ($username ,$lastname,$password,$email)";
-            mysql_query($sql1);
-
-
-        /*** unset the form token session variable ***/
-        unset( $_SESSION['form_token'] );
-/*
-        $stmt = $dbh->prepare("SELECT user_id, firstname, password FROM Users 
-                    WHERE firstname = :username AND password = :password");*/
-
-        /*** bind the parameters ***/
-      /*  $stmt->bindParam(':firstname', $username, PDO::PARAM_STR);
-        $stmt->bindParam(':password', $password, PDO::PARAM_STR, 40);*/
-
-        /*** execute the prepared statement ***/
-        // $stmt->execute();
-
-        /*** check for a result ***/
-      /*  $user_id = $stmt->fetchColumn();
-
-        $_SESSION['user_id'] = $user_id;*/
-
-        /*** if all is done, say thanks ***/
-/*        header("Location: index.php");
-*/        $message = 'New user added';
+    $lastname = filter_var($_POST['lastname'], FILTER_SANITIZE_STRING);   
+    $sql = "INSERT INTO `eShop`.`Users` (`id`, `firstname`, `lastname`, `password`, `email`) VALUES
+        (NULL, '$username','$lastname','$password', '$email');";
+    mysql_query($sql);   
+    $sql_cond="SELECT * FROM Users order by desc limit 1";
+    $query_cond=mysql_query($sql_cond);
+    if(mysql_num_rows($query_cond)!=0) {
+        $row_cond=mysql_fetch_assoc($query_cond);
     }
-    catch(Exception $e)
-    {
-        /*** check if the username already exists ***/
-        if( $e->getCode() == 23000)
-        {
-            $message = 'Username already exists';
-        }
-        else
-        {
-            /*** if we are here, something has gone wrong with the database ***/
-           $message = 'We are unable to process your request. Please try again later"';
-        }
+    $
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
-}
+   
 ?>
 
 <html>
