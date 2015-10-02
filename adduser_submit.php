@@ -46,7 +46,6 @@ elseif (!($_POST['password'] == $_POST['conpass']))
 }
 else
 {   
-
     /*** if we are here the data is valid and we can insert it into database ***/
     $username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
     $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
@@ -55,35 +54,14 @@ else
     $sql = "INSERT INTO `eShop`.`Users` (`id`, `firstname`, `lastname`, `password`, `email`) VALUES
         (NULL, '$username','$lastname','$password', '$email');";
     mysql_query($sql);   
-    $sql_cond="SELECT * FROM Users order by desc limit 1";
+    $sql_cond="SELECT * FROM Users order by id desc limit 1";
     $query_cond=mysql_query($sql_cond);
     if(mysql_num_rows($query_cond)!=0) {
         $row_cond=mysql_fetch_assoc($query_cond);
     }
-    $
-
-
-
-
-
-
-
-
-
-
-
-
-
-    }
+    $_SESSION['user_id'] = $row_cond['id'];
+    $url = "http://localhost/eShop/index.php";
+    header('Location: '.$url);
+}
    
 ?>
-
-<html>
-<head>
-<title>Login</title>
-</head>
-<body>
-<p><?php echo $message; ?>
-<a href="index.php?page=adduser">try again</a>
-</body>
-</html>

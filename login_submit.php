@@ -3,6 +3,8 @@
 /*** begin our session ***/
 session_start();
 
+require("includes/connection.php");
+
 /*** check if the users is already logged in ***/
 if(isset( $_SESSION['user_id'] ))
 {
@@ -40,76 +42,40 @@ else
     /*** if we are here the data is valid and we can insert it into database ***/
     $username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
     $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
-
-    /*** now we can encrypt the password ***/
-    $password = sha1( $password );
-    
-    /*** connect to database ***/
-    /*** mysql hostname ***/
-    $mysql_hostname = 'localhost';
-
-    /*** mysql username ***/
-    $mysql_username = 'tutorial';
-
-    /*** mysql password ***/
-    $mysql_password = 'supersecretpassword';
-
-    /*** database name ***/
-    $mysql_dbname = 'tutorials';
-
-    try
-    {
-        $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
-        /*** $message = a message saying we have connected ***/
-
-        /*** set the error mode to excptions ***/
-        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        /*** prepare the select statement ***/
-        $stmt = $dbh->prepare("SELECT user_id, username, password FROM users 
-                    WHERE username = :username AND password = :password");
-
-        /*** bind the parameters ***/
-        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-        $stmt->bindParam(':password', $password, PDO::PARAM_STR, 40);
-
-        /*** execute the prepared statement ***/
-        $stmt->execute();
-
-        /*** check for a result ***/
-        $user_id = $stmt->fetchColumn();
-
-        /*** if we have no result then fail boat ***/
-        if($user_id == false)
-        {
-                $message = 'Login Failed';
-        }
-        /*** if we do have a result, all is well ***/
-        else
-        {
-                /*** set the session user_id variable ***/
-                $_SESSION['user_id'] = $user_id;
-
-                /*** tell the user we are logged in ***/
-                $message = 'You are now logged in';
-                header("Location: index.php");
-        }
-
-
+    $sql = "SELECT * FROM Users 
+                WHERE firstname = '$username' AND password = '$password';";
+    $query_cond=mysql_query($sql);
+    if($query_cond === FALSE) { 
+    die(mysql_error()); // TODO: better error handling
     }
-    catch(Exception $e)
-    {
-        /*** if we are here, something has gone wrong with the database ***/
-        $message = 'We are unable to process your request. Please try again later"';
+    if(mysql_num_rows($query_cond)!=0) {
+        $row_cond=mysql_fetch_assoc($query_cond);
+        $user_id =$row_cond['id'];
+        $_SESSION['user_id'] = $user_id;
+        $url = "http://localhost/eShop/index.php";
+        header('Location: '.$url);   
+        
     }
+
+    else{
+        $message = "invalid login details";
+    }
+
 }
 ?>
+
 <html>
     <head>
     <title>Login</title>
     </head>
     <body>
+    <?php require("login.php") ?>
     <p><?php echo $message; ?>
-     <a href="login.php">try again</a>
     </body>
 </html>
+
+
+
+
+
+
