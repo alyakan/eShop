@@ -31,7 +31,7 @@
 <?php
 
     if(isset($message)){
-        echo "<div class='alert alert-success' role='alert'><h2>".$message."</h2></div>";
+        echo "<div class='alert alert-info' role='alert'>".$message."</div>";
     }
 
 ?>
