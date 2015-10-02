@@ -44,4 +44,7 @@
 
 	?>
 	</table>
-<a href="index.php?page=products" class="btn btn-primary btn-block"><i class="fa fa-home fa-fw"></i> Back to products</a>
+	<div class="well" >
+		<a href="index.php?page=products" class="btn btn-primary btn-block"><i class="fa fa-home fa-fw"></i> Back to products</a>
+	</div>
+
