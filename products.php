@@ -23,21 +23,21 @@
     }
 
 ?>
+<div class="page-header">
+    <h1>Product List</h1>
+</div>
 
-
-
-<h1>Product List</h1>
 
 <?php
 
     if(isset($message)){
-        echo "<h2>$message</h2>";
+        echo "<div class='alert alert-success' role='alert'><h2>".$message."</h2></div>";
     }
 
 ?>
-
-<table>
+<table class="table table-hover table-responsive">
     <tr>
+        <th>Picture</th>
         <th>Name</th>
         <th>Price</th>
         <th>Quantity</th>
@@ -52,26 +52,33 @@
         while ($row=mysql_fetch_array($query)) {
 
     ?>
-        <tr>
-            <td><?php echo $row['Name'] ?></td>
-            <td><?php echo $row['Price'] ?>$</td>
-            <td>
-                <?php
-                    if ($row['Quantity']==0) {
-                        echo "Out of stock";
-                    }else {
-                        echo $row['Quantity']; 
-                    }
-                    
-                ?>
-            </td>
-            <td>
-                <a href="index.php?page=products&action=add&id=<?php echo $row['id_product'] ?>">Add to cart</a><br>
-                <a href="index.php?page=checkout&action=buy&id=<?php echo $row['id_product'] ?>">Buy this item</a>
-            </td>
-        </tr>
+    <tr>
+        <td><img src="cinqueterre.jpg" class="img-rounded" alt="Cinque Terre" width="50" height="50"></td>
+        <td><?php echo $row['Name'] ?></td>
+        <td><?php echo $row['Price'] ?> <i class="fa fa-usd fa-fw"></i></td>
+        <td>
+            <?php
+                if ($row['Quantity']==0) {
+                    echo "Out of stock";
+                }else {
+                    echo $row['Quantity']; 
+                }
+                
+            ?>
+        </td>
+        <td>
+            <div class="btn-group">
+                <a href="index.php?page=checkout&action=buy&id=<?php echo $row['id_product'] ?>" class="btn btn-primary btn-sm">Buy this item</a>
+                <a href="index.php?page=products&action=add&id=<?php echo $row['id_product'] ?>" class="btn btn-primary btn-sm"><i class="fa fa-cart-plus fa-fw"></i> Add to cart</a>
+            </div>
+        </td>
+    </tr>
     <?php
         }
 
     ?>
 </table>
+
+
+
+
