@@ -31,7 +31,7 @@
 <?php
 
     if(isset($message)){
-        echo "<div class='alert alert-info' role='alert'>".$message."</div>";
+        echo "<div class='alert alert-info' role='alert'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>".$message."</div>";
     }
 
 ?>
