@@ -3,7 +3,7 @@
 	if(isset($_GET['action']) && $_GET['action']=="purchase") {
 		$sql="SELECT * FROM Cart 
 					INNER JOIN Products ON Cart.p_id=Products.id_product 
-					WHERE username='aly' and bought=0";
+					WHERE user_id=1 and bought=0";
 		$query=mysql_query($sql);
 		$new_quantity=0;
 		$purchase_available=True;
@@ -15,15 +15,19 @@
 				$purchase_available=False;
 			}
 		}
-		if ($purchase_available) {
-			while($row=mysql_fetch_array($query)) {
-				$new_quantity=$row['Quantity']-$row['quantity'];
-				$sql1="UPDATE Products SET Quantity=".$new_quantity." WHERE id_product=".$row['p_id']."";
+		if ($purchase_available==1) {
+			$sql="SELECT * FROM Cart 
+					INNER JOIN Products ON Cart.p_id=Products.id_product 
+					WHERE user_id=1 and bought=0";
+			$query=mysql_query($sql);
+			while($row2=mysql_fetch_array($query)) {
+				$new_quantity=$row2['Quantity']-$row2['quantity'];
+				$sql1="UPDATE Products SET Quantity=".$new_quantity." WHERE id_product=".$row2['p_id']."";
 				mysql_query($sql1);
 				$sql1="";
 			}
 
-			$sql="UPDATE Cart SET bought=1 WHERE username='aly' and bought=0";
+			$sql="UPDATE Cart SET bought=1 WHERE user_id=1 and bought=0";
 			mysql_query($sql);
 			$message="Your purchase is complete!";
 		}
@@ -38,12 +42,12 @@
 
 			if($value==0) {
 
-				$del="DELETE FROM Cart WHERE username='aly' and p_id=$key";
+				$del="DELETE FROM Cart WHERE user_id=1 and p_id=$key";
 				mysql_query($del);
 
 			}else {
 
-				$update=$sql_update="UPDATE Cart SET quantity=$value WHERE username='aly' and p_id=$key";
+				$update=$sql_update="UPDATE Cart SET quantity=$value WHERE user_id=1' and p_id=$key";
             	mysql_query($sql_update);
 
 			}
@@ -82,7 +86,7 @@
 
 		$sql="SELECT * FROM Cart 
 					INNER JOIN Products ON Cart.p_id=Products.id_product 
-					WHERE username='aly' and bought=0";
+					WHERE user_id=1 and bought=0";
 		$query= mysql_query($sql);
 		$total=0;
 		while($row=mysql_fetch_array($query)) {

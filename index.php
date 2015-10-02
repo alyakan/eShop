@@ -2,7 +2,7 @@
     session_start();
     require("includes/connection.php");
     if(isset($_GET['page'])){
-        $pages = array("products", "cart", "checkout", "adduser");
+        $pages = array("products", "cart", "checkout", "adduser", "history");
 
         if(in_array($_GET['page'], $pages)){
             $_page=$_GET['page'];
@@ -27,13 +27,13 @@ else
         $mysql_hostname = 'localhost';
 
         /*** mysql username ***/
-        $mysql_username = 'tutorial';
+        $mysql_username = 'alyakan';
 
         /*** mysql password ***/
-        $mysql_password = 'supersecretpassword';
+        $mysql_password = 'password';
 
         /*** database name ***/
-        $mysql_dbname = 'tutorials';
+        $mysql_dbname = 'eShop';
 
 
         /*** select the users name from the database ***/
@@ -164,7 +164,7 @@ else
                         <?php
                             $sql="SELECT * FROM Cart 
                                     INNER JOIN Products ON Cart.p_id=Products.id_product 
-                                    WHERE username='aly' and bought=0";
+                                    WHERE user_id=1 and bought=0";
                             $query=mysql_query($sql);
 
                             if (mysql_num_rows($query)!=0) {
@@ -193,8 +193,6 @@ else
 
                             <a href="index.php?page=history" class="btn btn-info btn-block"><i class="fa fa-history fa-fw"></i> View your purchase history</a>
                             <?php
-                            }else {
-                                echo "<h2>Your Cart is empty!</h2>";
                             }
                         ?>
                          <?php
