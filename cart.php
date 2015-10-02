@@ -65,16 +65,17 @@
 <br>
 <form method="post" action="index.php?page=cart" >
 	
-	<table>
-		<tr>
+
+
+<table class="table table-hover table-responsive">
+        <tr>
 			<th>Name</th>
 			<th>Quantity</th>
 			<th>Item Price</th>
 			<th>Subtotal</th>
 			<th>Available Stock</th>
 		</tr>
-
-
+   
 	<?php
 
 		$sql="SELECT * FROM Cart 
@@ -87,26 +88,29 @@
 			$total+=$subtotal;
 		
 			?>
-
-			<tr>
-				<td><?php echo $row['Name']; ?></td>
-				<td><input type="text" name="quantity[<?php echo $row['id_product'] ?>]" size="5" value="<?php echo $row['quantity']; ?>" /></td>
+    <tr>
+        <td><?php echo $row['Name']; ?></td>
+				<td><input type="text" name="quantity[<?php echo $row['id_product'] ?>]" size="5" value="<?php echo $row['quantity']; ?>" style="text-align:center" /></td>
 				<td><?php echo $row['Price'] ?>$</td>
 				<td><?php echo $subtotal; ?>$</td>
 				<td><?php echo $row['Quantity']; ?></td>
 			</tr>
 
 			<?php
+        }
 
-		}
+    ?>
+</table>
 
-	?>
-	</table>
 	<br><br>
 	Total amount = <?php echo $total; ?>$
 	<br><br>
-	<button type="submit" name="submit" >Update Cart</button>
+	<div class="btn-group">
+	    <button type="submit" name="submit" class="btn btn-primary btn-sm"><i class="fa fa-cart-plus fa-fw"></i>Update Cart</button>
+        <a href="index.php?page=checkout" class="btn btn-primary btn-sm" data-toggle="tooltip">Proceed to Checkout</a>
+    </div>
+	
 	<br><br>
-	<a href="index.php?page=checkout">Proceed to checkout</a>
+
 
 </form>
