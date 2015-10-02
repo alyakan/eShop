@@ -44,14 +44,34 @@
                 <nav class="navbar navbar-inverse">
                     <div class="container-fluid">
                         <div class="navbar-header">
-                            <a class="navbar-brand" href="#">WebSiteName</a>
+                            <a class="navbar-brand" href="index.php?page=products"><i class="fa fa-bolt fa-lg fa-fw"></i> eShop</a>
                         </div>
                         <div>
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="#">Home</a></li>
-                                <li><a href="#">History</a></li>
-                                <li><a href="#">Cart</a></li> 
-                                <li><a href="#">Profile</a></li> 
+
+                                <?php if ($_page=="products") {?>
+                                    <li class="active"><a href="#"><i class="fa fa-home fa-fw"></i> Home</a></li>
+                                <?php }else {?>
+                                    <li><a href="index.php?page=products"><i class="fa fa-home fa-fw"></i> Home</a></li>
+                                <?php } ?>
+
+                                <?php if ($_page=="history") {?>
+                                    <li class="active"><a href="#"><i class="fa fa-history fa-fw"></i> History</a></li>
+                                <?php }else {?>
+                                    <li><a href="index.php?page=history"><i class="fa fa-history fa-fw"></i> History</a></li>
+                                <?php } ?>
+
+                                <?php if ($_page=="cart") {?>
+                                    <li class="active"><a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Cart</a></li>
+                                <?php }else {?>
+                                    <li><a href="index.php?page=cart"><i class="fa fa-shopping-cart fa-fw"></i> Cart</a></li>
+                                <?php } ?>
+
+                                <?php if ($_page=="profile") {?> 
+                                    <li class="active"><a href="#"><i class="fa fa-user fa-fw"></i> Profile</a></li>
+                                <?php }else {?>
+                                    <li><a href="#"><i class="fa fa-user fa-fw"></i> Profile</a></li>
+                                <?php } ?> 
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>

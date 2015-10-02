@@ -53,7 +53,9 @@
 
 ?>
 
-<h1>Cart</h1>
+<div class="page-header">
+    <h1>Cart</h1>
+</div>
 <?php 
 
 	if (isset($message)) {
@@ -61,11 +63,11 @@
 	}
 
  ?>
-<a href="index.php?page=products">Back to products</a>
 <br>
+<div class="alert alert-info">
+  <strong>Info!</strong> To delete an item, enter amount 0 and press Update Cart.
+</div>
 <form method="post" action="index.php?page=cart" >
-	
-
 
 <table class="table table-hover table-responsive">
         <tr>
@@ -91,8 +93,8 @@
     <tr>
         <td><?php echo $row['Name']; ?></td>
 				<td><input type="text" name="quantity[<?php echo $row['id_product'] ?>]" size="5" value="<?php echo $row['quantity']; ?>" style="text-align:center" /></td>
-				<td><?php echo $row['Price'] ?>$</td>
-				<td><?php echo $subtotal; ?>$</td>
+				<td><?php echo $row['Price'] ?><i class="fa fa-usd fa-fw"></i></td>
+				<td><?php echo $subtotal; ?><i class="fa fa-usd fa-fw"></i></td>
 				<td><?php echo $row['Quantity']; ?></td>
 			</tr>
 
@@ -101,16 +103,17 @@
 
     ?>
 </table>
-
-	<br><br>
-	Total amount = <?php echo $total; ?>$
-	<br><br>
-	<div class="btn-group">
-	    <button type="submit" name="submit" class="btn btn-primary btn-sm"><i class="fa fa-cart-plus fa-fw"></i>Update Cart</button>
-        <a href="index.php?page=checkout" class="btn btn-primary btn-sm" data-toggle="tooltip">Proceed to Checkout</a>
-    </div>
-	
-	<br><br>
+	<div class="well">
+		Total amount = <strong><?php echo $total; ?></strong><i class="fa fa-usd fa-fw"></i><br><br>
+		<div class="btn-group btn-group-justified">
+			<div class="btn-group">
+				<button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-cart-plus fa-fw"></i>Update Cart</button>
+			</div>
+			
+        	<a href="index.php?page=checkout" class="btn btn-success" data-toggle="tooltip"><i class="fa fa-money fa-fw"></i> Proceed to Checkout</a>
+        	<a href="index.php?page=products" class="btn btn-primary btn-block"><i class="fa fa-home fa-fw"></i> Back to products</a>
+		</div>
+	</div>
 
 
 </form>

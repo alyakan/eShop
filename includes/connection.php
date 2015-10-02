@@ -1,9 +1,9 @@
 <?php
 
 	$server="localhost";
-	$user="tutorial";
-	$pass="supersecretpassword";
-	$db="alyyakan";
+	$user="alyakan";
+	$pass="password";
+	$db="eShop";
 
 	// connect to MySQL
 	mysql_connect($server, $user, $pass) or die("Sorry, cannot connect to MySQL.");

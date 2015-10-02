@@ -12,14 +12,13 @@
 
 
  ?>
+<div class="page-header">
+    <h1>Checkout</h1>
+</div>
 
-<h1>Checkout</h1>
-<h2>This is your last chance to change your mind!</h2>
-<a href="index.php?page=cart">Go back to cart?</a>
-
-<form method="post" action="index.php?page=cart" >
+<form method="post" action="index.php?page=cart" role="form">
 	
-	<table>
+	<table class="table table-hover table-responsive">
 		<tr>
 			<th>Name</th>
 			<th>Quantity</th>
@@ -45,8 +44,8 @@
 			<tr>
 				<td><?php echo $row['Name']; ?></td>
 				<td><?php echo $row['quantity']; ?></td>
-				<td><?php echo $row['Price'] ?>$</td>
-				<td><?php echo $subtotal; ?>$</td>
+				<td><?php echo $row['Price'] ?><i class="fa fa-usd fa-fw"></i></td>
+				<td><?php echo $subtotal; ?><i class="fa fa-usd fa-fw"></i></td>
 				<td><?php echo $row['Quantity']; ?></td>
 			</tr>
 
@@ -56,9 +55,16 @@
 
 	?>
 	</table>
-	<br><br>
-	Total amount = <?php echo $total; ?>$
-	<br><br>
-	<a href="index.php?page=cart&action=purchase">Confirm Purchase</a>
+	<div class="alert alert-danger">
+  		<strong>Careful!</strong> This is your last chance to change your mind.
+	</div>
+	<div class="well">
+		Total amount = <strong><?php echo $total; ?></strong><i class="fa fa-usd fa-fw"></i><br><br>
+		<div class="btn-group btn-group-justified">
+			<a href="index.php?page=cart" class="btn btn-primary"><i class="fa fa-shopping-cart fa-fw"></i> Go back to cart?</a>
+			<a href="index.php?page=cart&action=purchase" class="btn btn-success"><i class="fa fa-money fa-fw"></i> Confirm Purchase</a>
+		</div>
+	</div>
+	
 
 </form>
