@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h1>History</h1>
+    <h1><i class="fa fa-history fa-fw"></i> History</h1>
 </div>
 <?php 
 

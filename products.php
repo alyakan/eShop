@@ -24,7 +24,7 @@
 
 ?>
 <div class="page-header">
-    <h1>Product List</h1>
+    <h1><i class="fa fa-list fa-fw"></i> Product List</h1>
 </div>
 
 

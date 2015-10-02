@@ -13,7 +13,7 @@
 
  ?>
 <div class="page-header">
-    <h1>Checkout</h1>
+    <h1><i class="fa fa-money fa-fw"></i> Checkout</h1>
 </div>
 
 <form method="post" action="index.php?page=cart" role="form">

@@ -54,7 +54,7 @@
 ?>
 
 <div class="page-header">
-    <h1>Cart</h1>
+    <h1><i class="fa fa-shopping-cart fa-fw"></i> Cart</h1>
 </div>
 <?php 
 
