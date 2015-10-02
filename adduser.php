@@ -23,6 +23,7 @@ $_SESSION['form_token'] = $form_token;
 			<div class="form-group col-xs-4">
 				<input placeholder="Username (4 Characters or more!)" type="text" class="form-control" id="username"
 				name= "username">
+
 			</div>
 
 			<div class="form-group col-xs-4">

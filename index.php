@@ -2,7 +2,8 @@
     session_start();
     require("includes/connection.php");
     if(isset($_GET['page'])){
-        $pages = array("products", "cart", "checkout", "adduser" ,"login");
+        $pages = array("products", "cart", "checkout", "adduser" ,"login" ,"history");
+
 
         if(in_array($_GET['page'], $pages)){
             $_page=$_GET['page'];
@@ -16,6 +17,7 @@
 
     if(isset($_GET['message'])){
         $message = $_GET['message']; 
+
     }
 
 ?>
@@ -117,7 +119,7 @@
                         <?php
                             $sql="SELECT * FROM Cart 
                                     INNER JOIN Products ON Cart.p_id=Products.id_product 
-                                    WHERE username='aly' and bought=0";
+                                    WHERE user_id=1 and bought=0";
                             $query=mysql_query($sql);
 
                             if (mysql_num_rows($query)!=0) {
@@ -146,8 +148,6 @@
 
                             <a href="index.php?page=history" class="btn btn-info btn-block"><i class="fa fa-history fa-fw"></i> View your purchase history</a>
                             <?php
-                            }else {
-                                echo "<h2>Your Cart is empty!</h2>";
                             }
                         ?>
                          <?php
