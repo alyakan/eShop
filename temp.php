@@ -50,42 +50,65 @@ else
 /*    $firstname = filter_var($_POST['firstname'], FILTER_SANITIZE_STRING);
     $avatar = filter_var($_POST['avatar'], FILTER_SANITIZE_STRING);*/
 
+    /*** now we can encrypt the password ***/
+    $password = sha1( $password );
+    
+    /*** connect to database ***/
+    /*** mysql hostname ***/
+    $mysql_hostname = 'localhost';
+
+    /*** mysql username ***/
+    $mysql_username = 'alyakan';
+
+    /*** mysql password ***/
+    $mysql_password = 'password';
+
+    /*** database name ***/
+    $mysql_dbname = 'eShop';
 
     try
     {
-        require("includes/connection.php");
-         /*** $message = a message saying we have connected ***/
+        $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
+        /*** $message = a message saying we have connected ***/
 
         /*** set the error mode to excptions ***/
+        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        /*** insert ***/
+        /*** prepare the insert ***/
+        $stmt = $dbh->prepare("INSERT INTO Users (firstname, password, email, lastname) VALUES (:username, :password, :email, :lastname)");
 
-        $sql1="INSERT INTO Users (firstname, lastname , password ,email  ) VALUES
-            ($username ,$lastname,$password,$email)";
-            mysql_query($sql1);
+        /*** bind the parameters ***/
+        $stmt->bindParam(':firstname', $username, PDO::PARAM_STR);
+        $stmt->bindParam(':password', $password, PDO::PARAM_STR, 40);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        // $stmt->bindParam(':firstname', $firstname, PDO::PARAM_STR);
+        $stmt->bindParam(':lastname', $lastname, PDO::PARAM_STR);
+        // $stmt->bindParam(':avatar', $avatar, PDO::PARAM_STR);
 
+        /*** execute the prepared statement ***/
+        $stmt->execute();
 
         /*** unset the form token session variable ***/
         unset( $_SESSION['form_token'] );
-/*
+
         $stmt = $dbh->prepare("SELECT user_id, firstname, password FROM Users 
-                    WHERE firstname = :username AND password = :password");*/
+                    WHERE firstname = :username AND password = :password");
 
         /*** bind the parameters ***/
-      /*  $stmt->bindParam(':firstname', $username, PDO::PARAM_STR);
-        $stmt->bindParam(':password', $password, PDO::PARAM_STR, 40);*/
+        $stmt->bindParam(':firstname', $username, PDO::PARAM_STR);
+        $stmt->bindParam(':password', $password, PDO::PARAM_STR, 40);
 
         /*** execute the prepared statement ***/
-        // $stmt->execute();
+        $stmt->execute();
 
         /*** check for a result ***/
-      /*  $user_id = $stmt->fetchColumn();
+        $user_id = $stmt->fetchColumn();
 
-        $_SESSION['user_id'] = $user_id;*/
+        $_SESSION['user_id'] = $user_id;
 
         /*** if all is done, say thanks ***/
-/*        header("Location: index.php");
-*/        $message = 'New user added';
+        header("Location: index.php");
+        $message = 'New user added';
     }
     catch(Exception $e)
     {
