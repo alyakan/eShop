@@ -95,9 +95,6 @@
                 </nav>
             
                 <h1>eShop</h1>
-                <?php if( isset( $_SESSION['user_id'] ) ): ?>
-                        <p> logged in as <?php echo $_SESSION['username'] ?> </p>
-                <?php endif; ?>
                 <?php
                 if(isset($_GET['message'])){
                     echo "<h4> $message </h4>";

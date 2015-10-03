@@ -25,6 +25,7 @@
 		$old=$_POST['o-pass'];
 		$new=$_POST['n-pass'];
 		$conf=$_POST['con-pass'];
+		echo $id;
 		echo $old;
 		echo $new;
 		echo $conf;

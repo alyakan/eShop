@@ -1,7 +1,6 @@
 <?php
 
 /*** begin our session ***/
-session_start();
 
 require("includes/connection.php");
 

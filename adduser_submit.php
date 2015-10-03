@@ -66,9 +66,10 @@ else
     $username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
     $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
     $email = filter_var($_POST['email'], FILTER_SANITIZE_STRING);
+    $firstname = filter_var($_POST['firstname'], FILTER_SANITIZE_STRING); 
     $lastname = filter_var($_POST['lastname'], FILTER_SANITIZE_STRING);   
-    $sql = "INSERT INTO `eShop`.`Users` (`id`, `firstname`, `lastname`, `password`, `email`) VALUES
-        (NULL, '$username','$lastname','$password', '$email');";
+    $sql = "INSERT INTO `eShop`.`Users` (`id`, `username`,`firstname`, `lastname`, `password`, `email`) VALUES
+        (NULL, '$username','$firstname','$lastname','$password', '$email');";
     mysql_query($sql);   
     $sql_cond="SELECT * FROM Users order by id desc limit 1";
     $query_cond=mysql_query($sql_cond);

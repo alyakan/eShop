@@ -1,4 +1,11 @@
 <?php 
+	
+	if(!isset($_SESSION['user_id'])) {
+		$url="index.php?page=login&message=Please login before you can make a purchase";
+    	header('Location: '.$url);
+	}
+
+
 if(isset($_SESSION['user_id'])){
     $user_id = $_SESSION['user_id'];
 	if(isset($_GET['action']) && $_GET['action']=="buy"){

@@ -23,7 +23,6 @@ $_SESSION['form_token'] = $form_token;
 			<div class="form-group col-xs-4">
 				<input placeholder="Username (4 Characters or more!)" type="text" class="form-control" id="username"
 				name= "username">
-
 			</div>
 
 			<div class="form-group col-xs-4">
@@ -38,6 +37,9 @@ $_SESSION['form_token'] = $form_token;
 				<input type="email" class="form-control" id="email" name="email" placeholder="Email">
 			</div>
 
+			<div class="form-group col-xs-4">
+				<input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name">
+			</div>
 
 			<div class="form-group col-xs-4">
 				<input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name">

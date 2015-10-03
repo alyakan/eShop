@@ -3,7 +3,6 @@
 </head>
 <?php
 require("includes/connection.php");
-$_SESSION['user_id']=1;
 if(isset($_SESSION['user_id'] ))
 
 {   
@@ -70,7 +69,7 @@ if(isset($_SESSION['user_id'] ))
         <div class="collapse" id="change-pass">
             <form action="update_profile.php" method="post" enctype="multipart/form-data" class="form" role="form">
                 <div class="form-group">
-                    <input type="hidden" class="form-control" id="user_id" name="user_id" value=<?php echo $row_cond['user_id'] ?>><br>
+                    <input type="hidden" class="form-control" id="id" name="id" value=<?php echo $row_cond['id']; ?>><br>
                     <input type="password" class="form-control" id="o-pass" name="o-pass" placeholder="Old Password"><br>
                     <input type="password" class="form-control" id="n-pass" name="n-pass" placeholder="New Password"><br>
                     <input type="password" class="form-control" id="con-pass" name="con-pass" placeholder="Password Confirmation"><br>
