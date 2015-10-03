@@ -2,8 +2,8 @@
     session_start();
     require("includes/connection.php");
     if(isset($_GET['page'])){
-        $pages = array("products", "cart", "checkout", "adduser" ,"login" ,"history");
 
+        $pages = array("products", "cart", "checkout", "adduser", "history","login");
 
         if(in_array($_GET['page'], $pages)){
             $_page=$_GET['page'];
@@ -17,6 +17,7 @@
 
     if(isset($_GET['message'])){
         $message = $_GET['message']; 
+
 
     }
 
@@ -117,6 +118,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <?php
+                            $user_id = $_SESSION['user_id'];
                             $sql="SELECT * FROM Cart 
                                     INNER JOIN Products ON Cart.p_id=Products.id_product 
                                     WHERE user_id=1 and bought=0";
@@ -127,10 +129,7 @@
                                 <ul class="list-group">
                                 <?php
                                 while ($row=mysql_fetch_array($query)) {
-
-
-
-                                ?>
+                              ?>
                                 
                                     <li class="list-group-item"><?php echo $row['Name'] ?> <i class="fa fa-times fa-fw"></i><?php echo $row['quantity'] ?></li>
                                 <?php
