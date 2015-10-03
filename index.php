@@ -120,29 +120,33 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <?php
-                            $user_id = $_SESSION['user_id'];
-                            $sql="SELECT * FROM Cart 
+                            if(isset($_SESSION['user_id'])){
+                                $user_id = $_SESSION['user_id'];
+                                $sql="SELECT * FROM Cart 
                                     INNER JOIN Products ON Cart.p_id=Products.id_product 
-                                    WHERE user_id=1 and bought=0";
-                            $query=mysql_query($sql);
+                                    WHERE user_id= '$user_id' and bought=0";
+                                    $query=mysql_query($sql);
 
-                            if (mysql_num_rows($query)!=0) {
-                                ?>
-                                <ul class="list-group">
-                                <?php
-                                while ($row=mysql_fetch_array($query)) {
-                              ?>
-                                
-                                    <li class="list-group-item"><?php echo $row['Name'] ?> <i class="fa fa-times fa-fw"></i><?php echo $row['quantity'] ?></li>
-                                <?php
-                                }
-                                ?>
-                                </ul>
-                                <hr />
-                                <a href="index.php?page=cart" class="btn btn-info btn-block"><i class="fa fa-shopping-cart fa-fw"></i> Go to cart</a>
-                                <?php
-                            }else {
-                                echo "<h2>Your Cart is empty!</h2>";
+                                    if (mysql_num_rows($query)!=0) {
+                                        ?>
+                                        <ul class="list-group">
+                                        <?php
+                                        while ($row=mysql_fetch_array($query)) {
+                                      ?>
+                                        
+                                            <li class="list-group-item"><?php echo $row['Name'] ?> <i class="fa fa-times fa-fw"></i><?php echo $row['quantity'] ?></li>
+                                        <?php
+                                        }
+                                        ?>
+                                        </ul>
+                                        <hr />
+                                        <a href="index.php?page=cart" class="btn btn-info btn-block"><i class="fa fa-shopping-cart fa-fw"></i> Go to cart</a>
+                                        <?php
+                                    }else {
+                                        echo "<h2>Your Cart is empty!</h2>"; }
+                            }
+                            else{
+                                echo "<h4>You've to sign in </h4>";
                             }
                             if ($_page!='history') {
                             ?>
