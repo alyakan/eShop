@@ -1,14 +1,26 @@
 <?php 
-
+if(isset($_SESSION['user_id'])){
+    $user_id = $_SESSION['user_id'];
 	if(isset($_GET['action']) && $_GET['action']=="buy"){
         $id=intval($_GET['id']);
+        $u_id=intval($_SESSION['user_id']);
+        $sql_check="SELECT * FROM Cart WHERE p_id=$id AND user_id=$u_id AND bought=0";
+        $query_check=mysql_query($sql_check);
+        if(mysql_num_rows($query_check) != 0) {
+        	$row=mysql_fetch_array($query_check);
+        	$quantity=$row['quantity']+1;
+        	$sql_update="UPDATE Cart SET quantity=$quantity WHERE user_id=$u_id AND p_id=$id AND bought=0";
+        	mysql_query($sql_update);
+        }else {
+        	$sql_buy="INSERT INTO Cart (p_id, quantity, user_id, bought)
+            VALUES ($id, 1, '$u_id', 0)";
+            mysql_query($sql_buy);
+        }
 
-        $sql_buy="INSERT INTO Cart (p_id, quantity, user_id, bought)
-            VALUES ($id, 1, 1, 0)";
-        mysql_query($sql_buy);
+        
     }
 
-
+}
 
 
  ?>
@@ -29,10 +41,12 @@
 
 
 	<?php
+    if(isset($_SESSION['user_id'])){
 
+        $user_id = $_SESSION['user_id'];
 		$sql="SELECT * FROM Cart 
 					INNER JOIN Products ON Cart.p_id=Products.id_product 
-					WHERE user_id=1 and bought=0";
+					WHERE user_id=$user_id and bought=0";
 		$query= mysql_query($sql);
 		$total=0;
 		while($row=mysql_fetch_array($query)) {
@@ -50,8 +64,9 @@
 			</tr>
 
 			<?php
-
 		}
+
+	}
 
 	?>
 	</table>
