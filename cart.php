@@ -1,4 +1,8 @@
 <?php
+	if(!isset($_SESSION['user_id'])) {
+	    $url="index.php?page=login&message=Please login before you can view your cart";
+	    header('Location: '.$url);
+	}	
 
     if(isset($_SESSION['user_id'])){
         $user_id = $_SESSION['user_id'];
@@ -89,7 +93,7 @@ if(isset($_SESSION['user_id'])){
 		</tr>
    
 	<?php
-if(isset($_SESSION['user_id'])){
+	if(isset($_SESSION['user_id'])){
         $user_id = $_SESSION['user_id'];
 		$sql="SELECT * FROM Cart 
 					INNER JOIN Products ON Cart.p_id=Products.id_product 
