@@ -10,9 +10,6 @@
 
 ?>
 
-<html>
-    <body>
-        <img src="data:image/png;base64,<?php echo $base64; ?>" alt="" width="50" height="50"/>
-    </body>
-</html>
+<img src="data:image/png;base64,<?php echo $base64; ?>" class="img-rounded" width="50" height="50">
+
 

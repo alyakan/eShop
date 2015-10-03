@@ -3,7 +3,8 @@
     require("includes/connection.php");
     if(isset($_GET['page'])){
 
-        $pages = array("products", "cart", "checkout", "adduser", "history","login");
+        $pages = array("products", "cart", "checkout", "adduser", "history","login","profile");
+
 
         if(in_array($_GET['page'], $pages)){
             $_page=$_GET['page'];
@@ -77,7 +78,7 @@
                                 <?php if ($_page=="profile") {?> 
                                     <li class="active"><a href="#"><i class="fa fa-user fa-fw"></i> Profile</a></li>
                                 <?php }else {?>
-                                    <li><a href="#"><i class="fa fa-user fa-fw"></i> Profile</a></li>
+                                    <li><a href="index.php?page=profile"><i class="fa fa-user fa-fw"></i> Profile</a></li>
                                 <?php } ?> 
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
@@ -103,6 +104,7 @@
                 }
                 ?>
                 <p>Where you dreams come true.</p>
+
             </div><!-- end jumbotron --> 
       
             <div class="main col-md-8"> 
