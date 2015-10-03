@@ -47,7 +47,7 @@
 
 			}else {
 
-				$update=$sql_update="UPDATE Cart SET quantity=$value WHERE user_id=1' and p_id=$key";
+				$update=$sql_update="UPDATE Cart SET quantity=$value WHERE user_id=1 and p_id=$key";
             	mysql_query($sql_update);
 
 			}
