@@ -1,4 +1,5 @@
 body {
+    background-color: #48577D;
     font-family: Verdana;
     font-size: 12px;
     color: #444;
@@ -10,13 +11,14 @@ a:hover {text-decoration: underline;}
 
 h1, h2 {margin-bottom: 15px}
 
-h1 {font-size: 18px;}
+h1 {font-size: 18px; color: maroon;}
 h2 {font-size: 16px}
 
+a {color: maroon;}
 #container {
-    width: 700px;
+    width: 1000px;
     margin: 150px auto;
-    background-color: #eee;
+    background-color: linen;
     padding:15px;
     overflow: hidden;
 }
@@ -27,21 +29,23 @@ h2 {font-size: 16px}
     }
     
         #main table {
-            width: 480px;
+            width: 750px;
+            border: 1px solid maroon;
         }
         
             #main table th {
                 padding: 10px;
-                background-color: #48577D;
+                background-color: maroon;
                 color: #fff;
                 text-align: left;
             }
             
             #main table td {
                 padding: 5px;
+                border: 1px solid maroon;
             }
     
     #sidebar {
         width: 200px;
-        float: left;
+        float: right;
     }

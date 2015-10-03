@@ -3,7 +3,7 @@
 	if(isset($_GET['action']) && $_GET['action']=="purchase") {
 		$sql="SELECT * FROM Cart 
 					INNER JOIN Products ON Cart.p_id=Products.id_product 
-					WHERE username='aly' and bought=0";
+					WHERE user_id=1 and bought=0";
 		$query=mysql_query($sql);
 		$new_quantity=0;
 		$purchase_available=True;
@@ -15,15 +15,19 @@
 				$purchase_available=False;
 			}
 		}
-		if ($purchase_available) {
-			while($row=mysql_fetch_array($query)) {
-				$new_quantity=$row['Quantity']-$row['quantity'];
-				$sql1="UPDATE Products SET Quantity=".$new_quantity." WHERE id_product=".$row['p_id']."";
+		if ($purchase_available==1) {
+			$sql="SELECT * FROM Cart 
+					INNER JOIN Products ON Cart.p_id=Products.id_product 
+					WHERE user_id=1 and bought=0";
+			$query=mysql_query($sql);
+			while($row2=mysql_fetch_array($query)) {
+				$new_quantity=$row2['Quantity']-$row2['quantity'];
+				$sql1="UPDATE Products SET Quantity=".$new_quantity." WHERE id_product=".$row2['p_id']."";
 				mysql_query($sql1);
 				$sql1="";
 			}
 
-			$sql="UPDATE Cart SET bought=1 WHERE username='aly' and bought=0";
+			$sql="UPDATE Cart SET bought=1 WHERE user_id=1 and bought=0";
 			mysql_query($sql);
 			$message="Your purchase is complete!";
 		}
@@ -38,12 +42,12 @@
 
 			if($value==0) {
 
-				$del="DELETE FROM Cart WHERE username='aly' and p_id=$key";
+				$del="DELETE FROM Cart WHERE user_id=1 and p_id=$key";
 				mysql_query($del);
 
 			}else {
 
-				$update=$sql_update="UPDATE Cart SET quantity=$value WHERE username='aly' and p_id=$key";
+				$update=$sql_update="UPDATE Cart SET quantity=$value WHERE user_id=1 and p_id=$key";
             	mysql_query($sql_update);
 
 			}
@@ -53,7 +57,9 @@
 
 ?>
 
-<h1>Cart</h1>
+<div class="page-header">
+    <h1><i class="fa fa-shopping-cart fa-fw"></i> Cart</h1>
+</div>
 <?php 
 
 	if (isset($message)) {
@@ -61,25 +67,26 @@
 	}
 
  ?>
-<a href="index.php?page=products">Back to products</a>
 <br>
+<div class="alert alert-info">
+  <strong>Info!</strong> To delete an item, enter amount 0 and press Update Cart.
+</div>
 <form method="post" action="index.php?page=cart" >
-	
-	<table>
-		<tr>
+
+<table class="table table-hover table-responsive">
+        <tr>
 			<th>Name</th>
 			<th>Quantity</th>
 			<th>Item Price</th>
 			<th>Subtotal</th>
 			<th>Available Stock</th>
 		</tr>
-
-
+   
 	<?php
 
 		$sql="SELECT * FROM Cart 
 					INNER JOIN Products ON Cart.p_id=Products.id_product 
-					WHERE username='aly' and bought=0";
+					WHERE user_id=1 and bought=0";
 		$query= mysql_query($sql);
 		$total=0;
 		while($row=mysql_fetch_array($query)) {
@@ -87,26 +94,30 @@
 			$total+=$subtotal;
 		
 			?>
-
-			<tr>
-				<td><?php echo $row['Name']; ?></td>
-				<td><input type="text" name="quantity[<?php echo $row['id_product'] ?>]" size="5" value="<?php echo $row['quantity']; ?>" /></td>
-				<td><?php echo $row['Price'] ?>$</td>
-				<td><?php echo $subtotal; ?>$</td>
+    <tr>
+        <td><?php echo $row['Name']; ?></td>
+				<td><input type="text" name="quantity[<?php echo $row['id_product'] ?>]" size="5" value="<?php echo $row['quantity']; ?>" style="text-align:center" /></td>
+				<td><?php echo $row['Price'] ?><i class="fa fa-usd fa-fw"></i></td>
+				<td><?php echo $subtotal; ?><i class="fa fa-usd fa-fw"></i></td>
 				<td><?php echo $row['Quantity']; ?></td>
 			</tr>
 
 			<?php
+        }
 
-		}
+    ?>
+</table>
+	<div class="well">
+		Total amount = <strong><?php echo $total; ?></strong><i class="fa fa-usd fa-fw"></i><br><br>
+		<div class="btn-group btn-group-justified">
+			<div class="btn-group">
+				<button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-cart-plus fa-fw"></i>Update Cart</button>
+			</div>
+			
+        	<a href="index.php?page=checkout" class="btn btn-success" data-toggle="tooltip"><i class="fa fa-money fa-fw"></i> Proceed to Checkout</a>
+        	<a href="index.php?page=products" class="btn btn-primary btn-block"><i class="fa fa-home fa-fw"></i> Back to products</a>
+		</div>
+	</div>
 
-	?>
-	</table>
-	<br><br>
-	Total amount = <?php echo $total; ?>$
-	<br><br>
-	<button type="submit" name="submit" >Update Cart</button>
-	<br><br>
-	<a href="index.php?page=checkout">Proceed to checkout</a>
 
 </form>

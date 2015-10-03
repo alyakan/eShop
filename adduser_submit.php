@@ -130,6 +130,6 @@ else
 </head>
 <body>
 <p><?php echo $message; ?>
-<a href="adduser.php">try again</a>
+<a href="index.php?page=adduser">try again</a>
 </body>
 </html>
