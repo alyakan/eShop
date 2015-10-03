@@ -2,10 +2,22 @@
 
 	if(isset($_GET['action']) && $_GET['action']=="buy"){
         $id=intval($_GET['id']);
-
-        $sql_buy="INSERT INTO Cart (p_id, quantity, user_id, bought)
+        $u_id=intval($_SESSION['user_id']);
+        $sql_check="SELECT * FROM Cart WHERE p_id=$id AND user_id=$u_id AND bought=0";
+        $query_check=mysql_query($sql_check);
+        if(mysql_num_rows($query_check) != 0) {
+        	$row=mysql_fetch_array($query_check);
+        	$quantity=$row['quantity']+1;
+        	$sql_update="UPDATE Cart SET quantity=$quantity WHERE user_id=$u_id AND p_id=$id AND bought=0";
+        	mysql_query($sql_update);
+        }else {
+        	$sql_buy="INSERT INTO Cart (p_id, quantity, user_id, bought)
             VALUES ($id, 1, 1, 0)";
-        mysql_query($sql_buy);
+            mysql_query($sql_buy);
+        }
+
+        
+        
     }
 
 
