@@ -1,7 +1,11 @@
 <div class="page-header">
     <h1><i class="fa fa-history fa-fw"></i> History</h1>
 </div>
-<?php 
+<?php
+	if(!isset($_SESSION['user_id'])) {
+	    $url="index.php?page=login&message=Please login before you can view your history";
+	    header('Location: '.$url);
+	} 
 
 if(isset($_SESSION['user_id'])){
     $user_id = $_SESSION['user_id'];

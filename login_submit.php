@@ -1,7 +1,7 @@
 <?php
 
 /*** begin our session ***/
-
+session_start();
 require("includes/connection.php");
 
 /*** check if the users is already logged in ***/
@@ -56,7 +56,7 @@ else
     $username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
     $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
     $sql = "SELECT * FROM Users 
-                WHERE firstname = '$username' AND password = '$password';";
+                WHERE username = '$username' AND password = '$password';";
     $query_cond=mysql_query($sql);
     if($query_cond === FALSE) { 
     die(mysql_error()); // TODO: better error handling

@@ -3,6 +3,10 @@
 </head>
 <?php
 require("includes/connection.php");
+if(!isset($_SESSION['user_id'])) {
+        $url="index.php?page=login&message=Please login before you can view your profile";
+        header('Location: '.$url);
+    }
 if(isset($_SESSION['user_id'] ))
 
 {   

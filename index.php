@@ -83,6 +83,7 @@
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <?php if( isset( $_SESSION['user_id'] ) ): ?>
+                                    <li><a href="index.php?page=profile"><strong><?php echo $_SESSION['username'] ?></strong></a></li>
                                     <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                                 <?php else: ?>
                                     <li><a href="index.php?page=adduser"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
@@ -95,16 +96,30 @@
                 </nav>
             
                 <h1>eShop</h1>
-                <?php
-                if(isset($_GET['message'])){
-                    echo "<h4> $message </h4>";
-                }
-                ?>
                 <p>Where you dreams come true.</p>
 
             </div><!-- end jumbotron --> 
-      
-            <div class="main col-md-8"> 
+            
+            <div class="main col-md-8">
+                <?php
+                    if(isset($_GET['message']) && $_GET['page']!="profile"){
+                        if(isset($_GET['success']) && $_GET['success']==1){
+                            ?>
+                                <div class='alert alert-success' role='alert'> 
+                                    <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                                    <?php echo $_GET['message']; ?>
+                                </div>
+                            <?php
+                        }else {
+                            ?>
+                                <div class='alert alert-danger' role='alert'> 
+                                    <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                                    <?php echo $_GET['message']; ?>
+                                </div>
+                            <?php
+                        }
+                    }
+                ?>
 
                 <?php require($_page.".php"); ?>
                   
@@ -143,7 +158,11 @@
                                         echo "<h2>Your Cart is empty!</h2>"; }
                             }
                             else{
-                                echo "<h4>You've to sign in </h4>";
+                                ?>
+                                <div class='alert alert-info' role='alert'>
+                                    <h4><strong>Please <a href="index.php?page=login" style="color: green;">login</a> to view your cart.</strong></h4>
+                                </div>
+                                <?php
                             }
                             if ($_page!='history') {
                             ?>
