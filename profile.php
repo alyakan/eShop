@@ -3,7 +3,6 @@
 </head>
 <?php
 require("includes/connection.php");
-$_SESSION['user_id']=1;
 if(isset($_SESSION['user_id'] ))
 
 {   
