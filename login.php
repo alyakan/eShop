@@ -1,24 +1,13 @@
-<html>
-	<head>
-		<title>Login</title>
-	</head>
-
-	<body>
-		<h2>Login Here</h2>
-		<form action="login_submit.php" method="post">
-			<fieldset>
-				<p>
-					<label for="username">Username</label>
-					<input type="text" id="username" name="username" value="" maxlength="20" />
-				</p>
-				<p>
-					<label for="password">Password</label>
-					<input type="password" id="password" name="password" value="" maxlength="20" />
-				</p>
-				<p>
-					<input type="submit" value= "Login" />
-				</p>
-			</fieldset>
-		</form>
-	</body>
-</html>
+<div class="page-header">
+    <h1><i class="fa fa-log-in fa-fw"></i> Login Here</h1>
+</div>
+<form action="login_submit.php" method="post">
+	<fieldset>
+		<div class="form-group col-xs-4">
+			<input placeholder="Username" type="text" class="form-control" id="username"
+			name="username"><br>
+			<input type="password" class="form-control" id="password" name="password" placeholder="Password"><br>
+			<input type="submit" value="Login" type="button" class="btn btn-success btn-block" />
+		</div>
+	</fieldset>
+</form>

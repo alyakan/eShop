@@ -7,7 +7,7 @@ if(isset($_SESSION['user_id'] ))
 
 {   
 	$user_id = $_SESSION['user_id'];
-    $sql_cond="SELECT * FROM Users WHERE user_id=1";
+    $sql_cond="SELECT * FROM Users WHERE id='$user_id'";
     $query_cond=mysql_query($sql_cond);
 
     if(mysql_num_rows($query_cond)!=0) {
@@ -43,9 +43,9 @@ if(isset($_SESSION['user_id'] ))
         <form action="update_profile.php" method="post" class="form" role="form">
 
             <div class="form-group">
-                <input type="hidden" class="form-control" id="user_id" name="user_id" value=<?php echo $row_cond['user_id'] ?>><br>
+                <input type="hidden" class="form-control" id="user_id" name="user_id" value=<?php echo $row_cond['id'] ?>><br>
                 <fieldset disabled>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" value=<?php echo $row_cond['username'] ?>><br>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" value=<?php echo $row_cond['firstname'] ?>><br>
                 </fieldset>
                 <input type="email" class="form-control" id="email" name="email" placeholder="Email" value=<?php echo $row_cond['email'] ?>><br>
                 <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name" value=<?php echo $row_cond['firstname'] ?>><br>
@@ -69,7 +69,7 @@ if(isset($_SESSION['user_id'] ))
         <div class="collapse" id="change-pass">
             <form action="update_profile.php" method="post" enctype="multipart/form-data" class="form" role="form">
                 <div class="form-group">
-                    <input type="hidden" class="form-control" id="user_id" name="user_id" value=<?php echo $row_cond['user_id'] ?>><br>
+                    <input type="hidden" class="form-control" id="id" name="id" value=<?php echo $row_cond['id']; ?>><br>
                     <input type="password" class="form-control" id="o-pass" name="o-pass" placeholder="Old Password"><br>
                     <input type="password" class="form-control" id="n-pass" name="n-pass" placeholder="New Password"><br>
                     <input type="password" class="form-control" id="con-pass" name="con-pass" placeholder="Password Confirmation"><br>

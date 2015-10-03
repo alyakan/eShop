@@ -3,10 +3,11 @@
 </div>
 <?php 
 
-
+if(isset($_SESSION['user_id'])){
+    $user_id = $_SESSION['user_id'];
 	$sql="SELECT * FROM Cart 
             INNER JOIN Products ON Cart.p_id=Products.id_product 
-            WHERE user_id=1' and bought=0";
+            WHERE user_id='$user_id' and bought=0";
     $query=mysql_query($sql);
     ?>
 
@@ -23,7 +24,7 @@
 
 		$sql="SELECT * FROM Cart 
 					INNER JOIN Products ON Cart.p_id=Products.id_product 
-					WHERE user_id=1 and bought=1";
+					WHERE user_id='$user_id' and bought=1";
 		$query= mysql_query($sql);
 		$total=0;
 		while($row=mysql_fetch_array($query)) {
@@ -41,6 +42,7 @@
 			<?php
 
 		}
+	}
 
 	?>
 	</table>

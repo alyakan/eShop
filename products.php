@@ -1,26 +1,34 @@
 <?php
-
-    if(isset($_GET['action']) && $_GET['action']=="add"){
-        $id=intval($_GET['id']);
-
-        $sql_cond="SELECT * FROM Cart WHERE user_id=1 and p_id=$id and bought=0";
-        $query_cond=mysql_query($sql_cond);
-
-        if(mysql_num_rows($query_cond)!=0) {
-
-            $row_cond=mysql_fetch_array($query_cond);
-            $quantity=$row_cond['quantity']+1;
-            $sql_update="UPDATE Cart SET quantity=$quantity WHERE user_id=1 and p_id=$id";
-            mysql_query($sql_update);
-
-        }else {
-
-            $sql1="INSERT INTO Cart (p_id, quantity, user_id) VALUES
-                ($id, 1, 1)";
-            mysql_query($sql1);
-
+    if(isset($_GET['action']) && $_GET['action']=="add"){ 
+        if(!isset($_SESSION['user_id'])) {
+            $url="index.php?page=login&message=Please login before you can make a purchase";
+            header('Location: '.$url);
         }
     }
+    
+    if(isset($_SESSION['user_id'])){
+        $user_id = $_SESSION['user_id'];
+        if(isset($_GET['action']) && $_GET['action']=="add"){
+            $id=intval($_GET['id']);
+            $sql_cond="SELECT * FROM Cart WHERE user_id= $user_id and p_id=$id and bought=0";
+            $query_cond=mysql_query($sql_cond);
+            if(mysql_num_rows($query_cond)!=0) {
+                $row_cond=mysql_fetch_array($query_cond);
+                $quantity=$row_cond['quantity']+1;
+                $sql_update="UPDATE Cart SET quantity=$quantity WHERE user_id='$user_id' and p_id=$id";
+                mysql_query($sql_update);
+
+            }
+            else {
+
+                $sql1="INSERT INTO Cart (p_id, quantity, user_id) VALUES
+                    ($id, 1,'$user_id')";
+                mysql_query($sql1);
+
+            }
+    }
+    
+}
 
 ?>
 <div class="page-header">
